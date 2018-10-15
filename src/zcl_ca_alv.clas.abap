@@ -42,7 +42,7 @@ CLASS zcl_ca_alv DEFINITION
     CLASS-DATA dc_functions_default TYPE salv_de_constant VALUE 1. "#EC NOTEXT .
     CLASS-DATA dc_functions_none TYPE salv_de_constant VALUE 0. "#EC NOTEXT .
 
-    METHODS crear_alv
+    METHODS create_alv
       IMPORTING
         !iv_list_mode TYPE sap_bool DEFAULT if_salv_c_bool_sap=>false
         !io_container TYPE REF TO cl_gui_container OPTIONAL
@@ -353,7 +353,7 @@ endmethod.
 * | [<-->] C_DATOS                        TYPE        TABLE
 * | [EXC!] ERROR_CREAR_ALV
 * +--------------------------------------------------------------------------------------</SIGNATURE>
-method CREAR_ALV.
+method create_alv.
 
 * La instanciación de la clase se hace entre un TRY..CATCH para
 * poder capturar cualquier excepción.
