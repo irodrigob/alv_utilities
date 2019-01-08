@@ -6,14 +6,6 @@
 *&---------------------------------------------------------------------*
 REPORT zalv_example_basic.
 
-TYPES: BEGIN OF ts_user,
-         bname TYPE usr02-bname,
-         gltgv TYPE usr02-gltgv,
-         gltgb TYPE usr02-gltgb,
-         uflag TYPE usr02-uflag,
-       END OF ts_user.
-TYPES: tt_user TYPE STANDARD TABLE OF ts_user.
-
 START-OF-SELECTION.
 
   SELECT bname, gltgv, gltgb, uflag

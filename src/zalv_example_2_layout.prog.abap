@@ -1,18 +1,10 @@
 *&---------------------------------------------------------------------*
-*& Report zalv_example_basic
+*& Report zalv_example_2_layout
 *&---------------------------------------------------------------------*
 *& Objetivo: Ejemplos para entender de como utilizar la clase ZCL_CA_ALV
 *& Descripción: Ejemplo cambiando el layout del ALV
 *&---------------------------------------------------------------------*
-REPORT zalv_example_basic.
-
-TYPES: BEGIN OF ts_user,
-         bname TYPE usr02-bname,
-         gltgv TYPE usr02-gltgv,
-         gltgb TYPE usr02-gltgb,
-         uflag TYPE usr02-uflag,
-       END OF ts_user.
-TYPES: tt_user TYPE STANDARD TABLE OF ts_user.
+REPORT zalv_example_2_layout.
 
 START-OF-SELECTION.
 

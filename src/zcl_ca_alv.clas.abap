@@ -110,7 +110,7 @@ CLASS zcl_ca_alv DEFINITION
         !iv_long_text       TYPE scrtext_l OPTIONAL
         !iv_short_text      TYPE scrtext_s OPTIONAL
         !iv_output_leng     TYPE lvc_outlen OPTIONAL
-        !iv_color           TYPE lvc_s_colo OPTIONAL
+        !is_color           TYPE lvc_s_colo OPTIONAL
         !iv_cell_type       TYPE salv_de_celltype OPTIONAL
         !iv_technical       TYPE sap_bool OPTIONAL
         !iv_currency_field  TYPE lvc_cfname OPTIONAL
@@ -657,8 +657,8 @@ CLASS zcl_ca_alv IMPLEMENTATION.
         ENDIF.
 
 * Pongo el color del campo
-        IF iv_color IS SUPPLIED.
-          mo_column->set_color( iv_color ).
+        IF is_color IS SUPPLIED.
+          mo_column->set_color( is_color ).
         ENDIF.
 
 * Pongo el tipo de campo:
