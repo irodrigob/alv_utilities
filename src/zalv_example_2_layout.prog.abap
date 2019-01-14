@@ -1,7 +1,7 @@
 *&---------------------------------------------------------------------*
 *& Report zalv_example_2_layout
 *&---------------------------------------------------------------------*
-*& Objetivo: Ejemplos para entender de como utilizar la clase ZCL_CA_ALV
+*& Objetivo: Ejemplos para entender como utilizar la clase ZCL_CA_ALV
 *& Descripción: Ejemplo cambiando el layout del ALV
 *&---------------------------------------------------------------------*
 REPORT zalv_example_2_layout.
@@ -35,6 +35,13 @@ END-OF-SELECTION.
 
 * Permitir la grabación de variantes
   mo_alv->set_manag_layout( ).
+
+* Título del programa
+  mo_alv->set_title( |{  sy-title }| ).
+
+* Método seleccion de filas
+  mo_alv->set_selection_mode( if_salv_c_selection_mode=>multiple ).
+
 
 
   IF sy-subrc <> 0.

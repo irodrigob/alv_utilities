@@ -1,7 +1,7 @@
 *&---------------------------------------------------------------------*
 *& Report zalv_example_basic
 *&---------------------------------------------------------------------*
-*& Objetivo: Ejemplos para entender de como utilizar la clase ZCL_CA_ALV
+*& Objetivo: Ejemplos para entender como utilizar la clase ZCL_CA_ALV
 *& Descripción: Ejemplo básico de un ALV sencillo sin opciones
 *&---------------------------------------------------------------------*
 REPORT zalv_example_basic.

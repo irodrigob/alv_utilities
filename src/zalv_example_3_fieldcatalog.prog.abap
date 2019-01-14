@@ -1,7 +1,7 @@
 *&---------------------------------------------------------------------*
 *& Report zalv_example_3_fieldcatalog
 *&---------------------------------------------------------------------*
-*& Objetivo: Ejemplos para entender de como utilizar la clase ZCL_CA_ALV
+*& Objetivo: Ejemplos para entender como utilizar la clase ZCL_CA_ALV
 *& Descripción: Ejemplo cambiando el catalogo de campos del ALV
 *&---------------------------------------------------------------------*
 REPORT zalv_example_3_fieldcatalog.
