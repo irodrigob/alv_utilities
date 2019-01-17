@@ -18,6 +18,7 @@ TYPES: BEGIN OF ts_user,
          quantity TYPE p LENGTH 13 DECIMALS 4,
          unit     TYPE meins,
          color    TYPE lvc_t_scol,
+         celltype TYPE salv_t_int4_column,
        END OF ts_user.
 TYPES: tt_user TYPE STANDARD TABLE OF ts_user.
 
@@ -30,6 +31,10 @@ START-OF-SELECTION.
          INTO CORRESPONDING FIELDS OF TABLE @mt_datos.
 
   LOOP AT mt_datos ASSIGNING FIELD-SYMBOL(<ls_datos>).
+
+    IF <ls_datos>-bname = 'DEVELOPER'.
+      <ls_datos>-celltype = VALUE #( ( columnname = 'BNAME' value = if_salv_c_cell_type=>hotspot  ) ).
+    ENDIF.
 
     <ls_datos>-amount = 100 * sy-tabix.
     <ls_datos>-quantity = 250 * sy-tabix.
@@ -47,7 +52,7 @@ START-OF-SELECTION.
       <ls_datos>-unit = 'KG'.
     ENDIF.
 
-  ENDLOOP..
+  ENDLOOP.
 
 END-OF-SELECTION.
 
@@ -86,6 +91,9 @@ END-OF-SELECTION.
 
 * Columna donde se define el color a nivel de registro y celda
   mo_alv->set_field_color( 'COLOR' ).
+
+* Columna donde se indicara como serán los estilos de la celda
+  mo_alv->set_celltype( 'CELLTYPE' ).
 
   IF sy-subrc <> 0.
     WRITE:/ 'Error crear ALV'.
