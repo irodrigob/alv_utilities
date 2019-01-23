@@ -79,7 +79,7 @@ END-OF-SELECTION.
   mo_alv->set_field_properties(  iv_field = 'NAVIGATE' iv_all_text = 'Navigate' iv_symbol = abap_true iv_cell_type = if_salv_c_cell_type=>hotspot ).
 
 * PF-Status a medida. Copiaado del STANDARD del grupo de funciones SALV
-  mo_alv->set_pfstatus( iv_pfstatus = 'STANDARD').
+  mo_alv->set_pfstatus( iv_pfstatus = 'STANDARD' ).
 
 * Eventos
   mo_alv_events = NEW lcl_alv_events( ).
