@@ -1,4 +1,4 @@
-# alv_utilities
+# Objetivo / Objective
 Clase que permite mostrar de una mánera y rápida un listado ALV. Simplificando las tareas para poder asignar el texto a una columna, cambiar de color, etc. haciendolo posible todo en una sola llamada.
 
 /
