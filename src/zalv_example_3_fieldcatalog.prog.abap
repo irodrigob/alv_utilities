@@ -67,36 +67,36 @@ END-OF-SELECTION.
       error_create_alv  = 1
       OTHERS            = 2 ).
 
-** Opciones de layout
-
-* Columnas optimizadas
-  mo_alv->set_optimized_cols( abap_true ).
-
-** Catalogo de campos
-
-* Texto en el campo COUNT y que además se sumarice por dicho campo
-  mo_alv->set_field_properties(  iv_field = 'COUNT' iv_all_text = 'Cont.' iv_set_aggregation = if_salv_c_aggregation=>total iv_position = 1 ).
-
-* Texto campo campo NAVIGATE, indicar que es un icono y que es navegable
-  mo_alv->set_field_properties(  iv_field = 'NAVIGATE' iv_all_text = 'Navigate' iv_symbol = abap_true iv_cell_type = if_salv_c_cell_type=>hotspot ).
-
-* Texo campo de importe y su moneda
-  mo_alv->set_field_properties(  iv_field = 'AMOUNT' iv_all_text = 'Amount' iv_currency_field = 'CURRENCY' ).
-
-* Texo campo de cantidad y su unidad de medida
-  mo_alv->set_field_properties(  iv_field = 'QUANTITY' iv_all_text = 'Quantity' iv_unit_field = 'UNIT' ).
-
-* Color para el campo de la moneda
-  mo_alv->set_field_properties(  iv_field = 'CURRENCY'  is_color = VALUE #( col = col_key ) ).
-
-* Columna donde se define el color a nivel de registro y celda
-  mo_alv->set_field_color( 'COLOR' ).
-
-* Columna donde se indicara como serán los estilos de la celda
-  mo_alv->set_celltype( 'CELLTYPE' ).
-
   IF sy-subrc <> 0.
     WRITE:/ 'Error crear ALV'.
   ELSE.
+    "Opciones de layout
+
+    "Columnas optimizadas
+    mo_alv->set_optimized_cols( abap_true ).
+
+    "Catalogo de campos
+
+    "Texto en el campo COUNT y que además se sumarice por dicho campo
+    mo_alv->set_field_properties(  iv_field = 'COUNT' iv_all_text = 'Cont.' iv_set_aggregation = if_salv_c_aggregation=>total iv_position = 1 ).
+
+    "Texto campo campo NAVIGATE, indicar que es un icono y que es navegable
+    mo_alv->set_field_properties(  iv_field = 'NAVIGATE' iv_all_text = 'Navigate' iv_symbol = abap_true iv_cell_type = if_salv_c_cell_type=>hotspot ).
+
+    "Texo campo de importe y su moneda
+    mo_alv->set_field_properties(  iv_field = 'AMOUNT' iv_all_text = 'Amount' iv_currency_field = 'CURRENCY' ).
+
+    "Texo campo de cantidad y su unidad de medida
+    mo_alv->set_field_properties(  iv_field = 'QUANTITY' iv_all_text = 'Quantity' iv_unit_field = 'UNIT' ).
+
+    "Color para el campo de la moneda
+    mo_alv->set_field_properties(  iv_field = 'CURRENCY'  is_color = VALUE #( col = col_key ) ).
+
+    "Columna donde se define el color a nivel de registro y celda
+    mo_alv->set_field_color( 'COLOR' ).
+
+    "Columna donde se indicara como serán los estilos de la celda
+    mo_alv->set_celltype( 'CELLTYPE' ).
+
     mo_alv->show_alv( ).
   ENDIF.

@@ -68,26 +68,25 @@ END-OF-SELECTION.
       error_create_alv  = 1
       OTHERS            = 2 ).
 
-** Opciones de layout
-
-* Columnas optimizadas
-  mo_alv->set_optimized_cols( abap_true ).
-
-** Catalogo de campos
-
-* Texto campo campo NAVIGATE, indicar que es un icono y que es navegable
-  mo_alv->set_field_properties(  iv_field = 'NAVIGATE' iv_all_text = 'Navigate' iv_symbol = abap_true iv_cell_type = if_salv_c_cell_type=>hotspot ).
-
-* PF-Status a medida. Copiaado del STANDARD del grupo de funciones SALV
-  mo_alv->set_pfstatus( iv_pfstatus = 'STANDARD' ).
-
-* Eventos
-  mo_alv_events = NEW lcl_alv_events( ).
-  SET HANDLER mo_alv_events->on_link_click FOR mo_alv.
-  SET HANDLER mo_alv_events->on_user_command FOR mo_alv.
-
   IF sy-subrc <> 0.
     WRITE:/ 'Error crear ALV'.
   ELSE.
-    mo_alv->show_alv( ).
+    "Opciones de layout
+
+    "Columnas optimizadas
+    mo_alv->set_optimized_cols( abap_true ).
+
+    "Catalogo de campos
+
+    "Texto campo campo NAVIGATE, indicar que es un icono y que es navegable
+    mo_alv->set_field_properties(  iv_field = 'NAVIGATE' iv_all_text = 'Navigate' iv_symbol = abap_true iv_cell_type = if_salv_c_cell_type=>hotspot ).
+
+    "PF-Status a medida. Copiaado del STANDARD del grupo de funciones SALV
+    mo_alv->set_pfstatus( iv_pfstatus = 'STANDARD' ).
+
+    "Eventos
+    mo_alv_events = NEW lcl_alv_events( ).
+    SET HANDLER mo_alv_events->on_link_click FOR mo_alv.
+    SET HANDLER mo_alv_events->on_user_command FOR mo_alv.
+
   ENDIF.
