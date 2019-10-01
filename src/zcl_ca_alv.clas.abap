@@ -272,11 +272,11 @@ CLASS zcl_ca_alv IMPLEMENTATION.
     DATA ld_name TYPE salv_de_function.
     TRY.
 
-* El campo de entrada icono es de cualquier tipo para poder se llamado directamente
-* a través del type-pools: ICON. Pero aquí lo convierto para poder ser llamado al método estándar
+        "El campo de entrada icono es de cualquier tipo para poder se llamado directamente
+        "a través del type-pools: ICON. Pero aquí lo convierto para poder ser llamado al método estándar
         ld_icon = iv_icon.
 
-* Hago lo mismo para el resto de campos.
+        "Hago lo mismo para el resto de campos.
         ld_text = iv_text.
         ld_tooltip = iv_tooltip.
         ld_name = iv_name.
@@ -324,14 +324,14 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD create_alv.
 
-* La instanciación de la clase se hace entre un TRY..CATCH para
-* poder capturar cualquier excepción.
+    "La instanciación de la clase se hace entre un TRY..CATCH para
+    "poder capturar cualquier excepción.
     TRY.
 
-* Al método estático que instancia la clase con el ALV se le pasa la tabla
-* de datos y la clase propiamente dicha.
-* La llamada dependerá si se ha pasado la información del container donde se
-*mostrará el ALV.
+        "Al método estático que instancia la clase con el ALV se le pasa la tabla
+        "de datos y la clase propiamente dicha.
+        "La llamada dependerá si se ha pasado la información del container donde se
+        "mostrará el ALV.
         IF io_container IS SUPPLIED.
 
           CALL METHOD cl_salv_table=>factory
@@ -355,24 +355,24 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
         ENDIF.
 
-* Inicializo las clases que servirán para ir ajustando el ALV
+        "Inicializo las clases que servirán para ir ajustando el ALV
         me->set_alv_class( ).
 
-* Activo la escucha de los eventos
+        "Activo la escucha de los eventos
         me->set_events( ).
 
-* Guardo el programa pasado
+        "Guardo el programa pasado
         mv_repid = iv_program.
 
-* paso el nombre del programa a la estructura clave
-* que es usada en otras partes del programa.
+        "paso el nombre del programa a la estructura clave
+        "que es usada en otras partes del programa.
         ms_layout_key-report = mv_repid.
 
-* La excepción es pasada a la clase CL_ALV_MSG.
+      "La excepción es pasada a la clase CL_ALV_MSG.
       CATCH cx_salv_msg INTO mo_alv_msg.
 
-* En este caso se muestra el mensaje de error pero se podría hacer
-* cualquier otra cosa.
+        "En este caso se muestra el mensaje de error pero se podría hacer
+        "cualquier otra cosa.
         MESSAGE mo_alv_msg TYPE 'I'.
 
         RAISE error_create_alv.
@@ -384,7 +384,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD evt_added_function.
 
-* Lanzo el evento added_function
+    "Lanzo el evento added_function
     RAISE EVENT added_function
       EXPORTING
         e_salv_function = e_salv_function.
@@ -394,7 +394,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD evt_after_salv_function.
 
-* Lanzo la función after_salv_function
+    "Lanzo la función after_salv_function
     RAISE EVENT after_salv_function
       EXPORTING
         e_salv_function = e_salv_function.
@@ -404,7 +404,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD evt_before_salv_function.
 
-* Lanzo el evento before_salv_function
+    "Lanzo el evento before_salv_function
     RAISE EVENT before_salv_function
       EXPORTING
         e_salv_function = e_salv_function.
@@ -414,7 +414,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD evt_double_click.
 
-* Lanzo el evento de doble click
+    "Lanzo el evento de doble click
     RAISE EVENT double_click
       EXPORTING
         row    = row
@@ -425,7 +425,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD evt_end_of_page.
 
-* Lanzo el evento end of page
+    "Lanzo el evento end of page
     RAISE EVENT end_of_page
       EXPORTING
         r_end_of_page = r_end_of_page
@@ -436,7 +436,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD evt_link_click.
 
-* Lanzo el evento "link click".
+    "Lanzo el evento "link click".
     RAISE EVENT link_click
       EXPORTING
         row    = row
@@ -447,7 +447,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD evt_top_of_page.
 
-* Lanzo el evento de cabecera de página
+    "Lanzo el evento de cabecera de página
     RAISE EVENT top_of_page
       EXPORTING
         r_top_of_page = r_top_of_page
@@ -482,7 +482,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD get_rows_sel.
 
-* Recupero las filas seleccionadas
+    "Recupero las filas seleccionadas
     rt_rows = mo_selections->get_selected_rows( ).
 
   ENDMETHOD.
@@ -524,7 +524,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
     mo_alv = io_alv.
 
-* Vuelvo a inicializar las clases que servirán para ir ajustando el ALV
+    "Vuelvo a inicializar las clases que servirán para ir ajustando el ALV
     me->set_alv_class( ).
 
   ENDMETHOD.
@@ -532,45 +532,45 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD set_alv_class.
 
-*** Cambiar propiedades de las columnas en general
+    "Cambiar propiedades de las columnas en general
     mo_columns = mo_alv->get_columns( ).
 
-*** Apariencia de la ALV
+    "Apariencia de la ALV
     mo_display = mo_alv->get_display_settings( ).
 
-*** Selecciones
+    "Selecciones
     mo_selections = mo_alv->get_selections( ).
 
-*** Gestión de eventos
+    "Gestión de eventos
     mo_events = mo_alv->get_event( ).
 
-*** Layout del ALV
+    "Layout del ALV
     mo_layout = mo_alv->get_layout( ).
 
-*** Recupero la funciones del ALV
+    "Recupero la funciones del ALV
     mo_functions = mo_alv->get_functions( ).
 
-*** Recupero la lista de funciones del ALV, es decir, botones del PF-STATUS.
+    "Recupero la lista de funciones del ALV, es decir, botones del PF-STATUS.
     cl_lista_funciones = mo_alv->get_functions( ).
 
-*** Recupero la clase para hacer avergaes, sumas, mínimos y máximos
+    "Recupero la clase para hacer avergaes, sumas, mínimos y máximos
     ms_aggregation = mo_alv->get_aggregations( ).
 
-*** Recupero la clase para realizar ordenaciones por defecto en el listado
+    "Recupero la clase para realizar ordenaciones por defecto en el listado
     mo_ordenacion = mo_alv->get_sorts( ).
 
-*** Instancio la clase que servira para pintar la cabecera
-*  CREATE OBJECT cl_cabecera.
+    "Instancio la clase que servira para pintar la cabecera
+    "CREATE OBJECT cl_cabecera.
 
-*** Instancio la clase que servira para pintar el pie de página
-*  CREATE OBJECT cl_pie.
+    "Instancio la clase que servira para pintar el pie de página
+    "CREATE OBJECT cl_pie.
 
   ENDMETHOD.
 
 
   METHOD set_alv_functions.
 
-* Activan todas las funciones
+    "Activan todas las funciones
     mo_functions->set_all( iv_active ).
 
   ENDMETHOD.
@@ -586,31 +586,31 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD set_events.
 
-* Activo la escucha del evento "user_command".
+    "Activo la escucha del evento "user_command".
     SET HANDLER
               me->evt_added_function FOR mo_events.
 
-* Activo la escucha del evento "doble click".
+    "Activo la escucha del evento "doble click".
     SET HANDLER
               me->evt_double_click FOR mo_events.
 
-* Activo la escucha del evento cuando se pulse un enlace o botón
+    "Activo la escucha del evento cuando se pulse un enlace o botón
     SET HANDLER
               me->evt_link_click FOR mo_events.
 
-* Activo el evento de cabecera de página
+    "Activo el evento de cabecera de página
     SET HANDLER
               me->evt_top_of_page FOR mo_events.
 
-* Activo el evento de pie de página
+    "Activo el evento de pie de página
     SET HANDLER
               me->evt_end_of_page FOR mo_events.
 
-* Activo el evento "Before salv function"
+    "Activo el evento "Before salv function"
     SET HANDLER
               me->evt_before_salv_function FOR mo_events.
 
-* Activo el evento "After salv function"
+    "Activo el evento "After salv function"
     SET HANDLER
               me->evt_after_salv_function FOR mo_events.
 
@@ -619,7 +619,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD set_field_color.
 
-* Indica el campo que indicará el color de una fila
+    "Indica el campo que indicará el color de una fila
     mo_columns->set_color_column( iv_field ).
 
   ENDMETHOD.
@@ -629,20 +629,20 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
     TRY.
 
-* Recupero los atributos del campo
+        "Recupero los atributos del campo
         mo_column ?= mo_columns->get_column( iv_field ).
 
-* Simbolo del campo
+        "Simbolo del campo
         IF iv_symbol IS SUPPLIED.
           mo_column->set_symbol( iv_symbol ).
         ENDIF.
 
-* Visibilidad del campo
+        "Visibilidad del campo
         IF iv_visible IS SUPPLIED.
           mo_column->set_visible( iv_visible ).
         ENDIF.
 
-* Llamo al método que actualiza las denominaciones del campo
+        "Llamo al método que actualiza las denominaciones del campo
         CALL METHOD set_field_texts
           EXPORTING
             iv_field       = iv_field
@@ -651,80 +651,80 @@ CLASS zcl_ca_alv IMPLEMENTATION.
             iv_long_text   = iv_long_text
             iv_short_text  = iv_short_text.
 
-* Pongo la longitud de salida
+        "Pongo la longitud de salida
         IF iv_output_leng IS SUPPLIED.
           mo_column->set_output_length( iv_output_leng ).
         ENDIF.
 
-* Pongo el color del campo
+        "Pongo el color del campo
         IF is_color IS SUPPLIED.
           mo_column->set_color( is_color ).
         ENDIF.
 
-* Pongo el tipo de campo:
+        "Pongo el tipo de campo:
         IF iv_cell_type IS SUPPLIED.
-* Los posibles valores se definen en la interface: IF_SALV_C_CELL_TYPE
+        "Los posibles valores se definen en la interface: IF_SALV_C_CELL_TYPE
           mo_column->set_cell_type( iv_cell_type ).
         ENDIF.
 
-* Pongo si el campo es técnico, es decir, no saldrá el ALV, ni siquiera en
-* el pool de campos
+        "Pongo si el campo es técnico, es decir, no saldrá el ALV, ni siquiera en
+        "el pool de campos
         IF iv_technical IS SUPPLIED.
           mo_column->set_technical( iv_technical ).
         ENDIF.
 
-* Pongo el campo de importe si esta informado
+        "Pongo el campo de importe si esta informado
         IF iv_currency_field IS SUPPLIED.
           mo_column->set_currency_column( iv_currency_field ).
         ENDIF.
 
-* Pongo el campo de cantidad si esta informado
+        "Pongo el campo de cantidad si esta informado
         IF iv_unit_field IS SUPPLIED.
           mo_column->set_quantity_column( iv_unit_field ).
         ENDIF.
 
-* Pongo el atibuto optimizar a la columna
+        "Pongo el atibuto optimizar a la columna
         IF i_optimized IS SUPPLIED.
           mo_column->set_optimized( i_optimized ).
         ENDIF.
 
-* Referencia al diccionario
+        "Referencia al diccionario
         IF iv_ddic_reference IS SUPPLIED.
           mo_column->set_ddic_reference( iv_ddic_reference  ).
         ENDIF.
 
-* Posicion
+        "Posicion
         IF iv_position IS SUPPLIED.
           mo_columns->set_column_position( columnname = iv_field position = iv_position ).
         ENDIF.
 
-* Decimales
+        "Decimales
         IF iv_decimals IS SUPPLIED.
           mo_column->set_decimals( iv_decimals  ).
         ENDIF.
 
-* Sumatorio
+        "Sumatorio
         IF iv_set_aggregation IS SUPPLIED.
           ms_aggregation->add_aggregation( columnname = iv_field
                                            aggregation = iv_set_aggregation ).
         ENDIF.
 
-* Sin ceros en celdas vacias
+        "Sin ceros en celdas vacias
         IF iv_zero IS SUPPLIED.
           mo_column->set_zero( iv_zero ).
         ENDIF.
 
-* Alineación
+        "Alineación
         IF iv_alignment IS SUPPLIED.
           mo_column->set_alignment( iv_alignment ).
         ENDIF.
 
-* Campo clave
+        "Campo clave
         IF iv_key IS SUPPLIED.
           mo_column->set_key( iv_key ).
         ENDIF.
 
-* Mascara de edicion
+        "Mascara de edicion
         IF iv_edit_mask IS SUPPLIED.
           mo_column->set_edit_mask( iv_edit_mask ).
         ENDIF.
@@ -741,14 +741,14 @@ CLASS zcl_ca_alv IMPLEMENTATION.
           d_texto_medio TYPE scrtext_m,
           d_texto_largo TYPE scrtext_l.
 
-* Miro si el texto para todas las denominaciones del campo esta informado
+    "Miro si el texto para todas las denominaciones del campo esta informado
     IF iv_all_text IS NOT INITIAL.
       d_texto_corto = iv_all_text.
       d_texto_medio = iv_all_text.
       d_texto_largo = iv_all_text.
     ELSE.
 
-* Voy mirando cada una de las denominaciones par air poniendolas en variables.
+      "Voy mirando cada una de las denominaciones par air poniendolas en variables.
       IF iv_short_text IS NOT INITIAL.
         d_texto_corto = iv_short_text.
       ENDIF.
@@ -763,7 +763,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
     ENDIF.
 
-* Dependiendo de las variables de textos informadas voy llamando a los método correspondientes.
+    "Dependiendo de las variables de textos informadas voy llamando a los método correspondientes.
     IF d_texto_medio IS NOT INITIAL.
       mo_column->set_medium_text( d_texto_medio ).
     ENDIF.
@@ -781,7 +781,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD set_footer_page.
 
-* Creo el tipo de campo para la cabecera de la página
+    "Creo el tipo de campo para la cabecera de la página
     CALL METHOD me->set_page_field_type
       EXPORTING
         iv_row        = iv_row
@@ -789,11 +789,11 @@ CLASS zcl_ca_alv IMPLEMENTATION.
         iv_field_type = iv_field_type
         iv_text       = iv_text.
 
-*  Paso los construidos de la cabecera al ALV
+    "Paso los construidos de la cabecera al ALV
     mo_alv->set_end_of_list( mo_cabecera ).
 
-* Si se indica que el listado por impresora tendrá el mismo formato
-* que el normal, entonces pasa la clase con la cabecera al ALV.
+    "Si se indica que el listado por impresora tendrá el mismo formato
+    "que el normal, entonces pasa la clase con la cabecera al ALV.
     IF iv_list = if_salv_c_bool_sap=>true.
       mo_alv->set_end_of_list( mo_cabecera ).
     ENDIF.
@@ -806,7 +806,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
     TRY.
 
-* Oculto o visualizo el botón pasado por parametro.
+        "Oculto o visualizo el botón pasado por parametro.
         cl_lista_funciones->set_function( name    = iv_function
                                            boolean = i_boolean ).
 
@@ -821,7 +821,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD set_header_page.
 
-* Creo el tipo de campo para la cabecera de la página
+    "Creo el tipo de campo para la cabecera de la página
     CALL METHOD me->set_page_field_type
       EXPORTING
         iv_row        = iv_row
@@ -829,11 +829,11 @@ CLASS zcl_ca_alv IMPLEMENTATION.
         iv_field_type = iv_field_type
         iv_text       = iv_text.
 
-*  Paso los construidos de la cabecera al ALV
+    "Paso los construidos de la cabecera al ALV
     mo_alv->set_top_of_list( mo_cabecera ).
 
-* Si se indica que el listado por impresora tendrá el mismo formato
-* que el normal, entonces pasa la clase con la cabecera al ALV.
+    "Si se indica que el listado por impresora tendrá el mismo formato
+    "que el normal, entonces pasa la clase con la cabecera al ALV.
     IF iv_list = if_salv_c_bool_sap=>true.
       mo_alv->set_top_of_list_print( mo_cabecera ).
     ENDIF.
@@ -852,10 +852,10 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD set_manag_layout.
 
-* Actualizo la clave de la gestión
+    "Actualizo la clave de la gestión
     mo_layout->set_key( ms_layout_key ).
 
-* E indico las restricciones existentes en la gestion de layout
+    "E indico las restricciones existentes en la gestion de layout
     mo_layout->set_save_restriction( iv_restriction ).
 
 
@@ -864,7 +864,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD set_optimized_cols.
 
-* Ajustar ancho de las columnas al contenido de los campos
+    "Ajustar ancho de las columnas al contenido de los campos
     mo_columns->set_optimize( cl_salv_display_settings=>true ).
 
   ENDMETHOD.
@@ -872,7 +872,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD set_page_field_type.
 
-* Creo y asocio el tipo de campo de la cabecera o pie de pagina.
+    "Creo y asocio el tipo de campo de la cabecera o pie de pagina.
     CASE iv_field_type.
       WHEN cv_header_flow_type.
 
@@ -920,7 +920,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
     TRY.
 
-* Funciones
+        "Funciones
         mo_alv->set_screen_status( pfstatus = iv_pfstatus
                                    report = mv_repid
                                    set_functions = iv_functions ).
@@ -948,7 +948,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD set_selection_mode.
 
-* Los tipos de selección lo indica la interface: IF_SALV_C_SELECTION_MODE
+    "Los tipos de selección lo indica la interface: IF_SALV_C_SELECTION_MODE
     mo_selections->set_selection_mode( iv_method ).
 
   ENDMETHOD.
@@ -956,7 +956,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD set_symbol_field.
 
-* Indico que el campo bloqueo es un icono
+    "Indico que el campo bloqueo es un icono
     mo_column ?= mo_columns->get_column( iv_field ).
     mo_column->set_symbol( iv_active ).
 
@@ -972,7 +972,7 @@ CLASS zcl_ca_alv IMPLEMENTATION.
 
   METHOD set_zebra_mode.
 
-* Patrón de visualización Zebra
+    "Patrón de visualización Zebra
     mo_display->set_striped_pattern( iv_active ).
 
   ENDMETHOD.
