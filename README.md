@@ -39,9 +39,5 @@ As a result of that I said to myself why not do something that allows me in a si
 # Requisitos / Requirements
 
 - Esta clase se creo en la versión ABAP 7.0 y funciona en versiones superior. Cualquier cambio se evita usar ABAP in-line o las nuevas sentencias disponibles en la 7.4x para ser compatible con la mayoria de sistemas
-- ABAPGit
-
 /
-
 - This class was created in the ABAP 7.0 version and works in higher versions. Any change is avoided using ABAP in-line or the new sentences available in 7.4x to be compatible with most systems
-- ABAPGit
